@@ -2,7 +2,7 @@
 
 from pathlib import Path
 import yaml
-from pydantic import BaseModel, Field, ValidationError
+from pydantic import BaseModel, Field, ValidationError, ConfigDict
 
 EU_COUNTRIES: list[str] = [
     "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR",
@@ -13,11 +13,12 @@ EU_COUNTRIES: list[str] = [
 
 class Config(BaseModel):
     """Validated tender-scout configuration."""
+    model_config = ConfigDict(extra="forbid")
 
     cpv_codes: list[str]
     company_profile: str
     countries: list[str] = Field(default_factory=lambda: list(EU_COUNTRIES))
-    min_score: int = 60
+    min_score: int = Field(default=60, ge=1, le=100, strict=True)
     model: str = "gpt-5-mini"
 
 
@@ -29,8 +30,8 @@ def load_config(path: Path) -> Config:
     # reading path as text
     try:
         text = path.read_text()
-    except FileNotFoundError as err:
-        raise ConfigError(f"config file not found: {path}") from err
+    except OSError as err:
+        raise ConfigError(f"config file not found: {path}: {err}") from err
 
     # load yaml
     try:
