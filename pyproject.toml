@@ -7,11 +7,21 @@ authors = [
     { name = "Muhammad Derylian Khalfani", email = "mderylkhalfani@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "langchain>=1.4.0",
+    "langchain-openai>=1.6.1",
+    "pydantic>=2.13.5",
+    "pyyaml>=6.0.3",
+]
 
 [project.scripts]
-tender-scout = "tender_scout:main"
+tender-scout = "tender_scout.cli:main"
 
 [build-system]
 requires = ["uv_build>=0.12.7,<0.13.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
