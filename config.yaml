@@ -1,0 +1,23 @@
+# CPV codes to keep. Strings, because some codes have leading zeros
+cpv_codes:
+- "71351000"
+- "76320000"
+- "76521000"
+
+company_profile: >
+    Fugro is a Geo-data specialist. We collect and interpret data about the
+    Earth's surface, subsurface, and the built and natural structures on it.
+    Core services: offshore and onshore geotechnical site investigation, marine
+    and airborne geophysical survey, hydrographic and bathymetric survey,
+    geological and geospatial mapping, positioning and metocean monitoring, and
+    asset integrity inspection. We support the full life cycle of offshore wind
+    farms, oil and gas fields, subsea cables and pipelines, ports, bridges,
+    roads, rail, dams, and flood defences. We operate a fleet of survey vessels,
+    remotely operated vehicles, autonomous surface vessels, and CPT and drilling
+    equipment. We do not design or build the infrastructure and we are not a
+    general civil-engineering contractor; our product is data, analysis, and
+    advisory. Primary markets are Europe's coastal and offshore energy and
+    large public infrastructure programmes.
+
+min_score: 60
+model: "gpt-5-mini"
