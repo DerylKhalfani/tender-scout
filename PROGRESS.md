@@ -2,9 +2,10 @@
 
 ## Current focus
 
-Grilled the idea, wrote `CONTEXT.md` + ADRs 0001–0002, spec at
-`.scratch/daily-digest/spec.md`, and 9 tickets at `.scratch/daily-digest/issues/`.
-Next: `/clear`, then `/implement` ticket 01. Do 06 (TED research) any time — no blockers.
+Ticket 01 (skeleton + config loader) merged: typed pydantic `Config`,
+  `load_config` raising `ConfigError`, `--config` CLI arg, 8 tests.
+
+  Next: `git checkout main && git pull`, then `/clear and `/implement` ticket 02 (run fetches and writes digest). Do 06 (TE research) any time — no blockers.
 
 ## Ticket order
 
@@ -35,3 +36,4 @@ on a cron schedule with a mounted file share.
 - ADRs record *that* a decision was made and *why* — one paragraph is enough
 - CONTEXT.md is a glossary only: define what a term IS, no implementation detail
 - "Cheap filter → expensive LLM judge" is a standard pattern for keeping token cost down
+- Always break the code to confirm each test goes red, then restore
