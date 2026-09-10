@@ -2,10 +2,9 @@
 
 ## Current focus
 
-Ticket 01 (skeleton + config loader) merged: typed pydantic `Config`,
-  `load_config` raising `ConfigError`, `--config` CLI arg, 8 tests.
+Ticket 02 done (the run seam, Notice, TedClient Protocol, render_digest, fake-client test pattern, 11 tests)
 
-  Next: `git checkout main && git pull`, then `/clear and `/implement` ticket 02 (run fetches and writes digest). Do 06 (TE research) any time — no blockers.
+Next: ticket 03 (prefilter) or Do 06 (TE research) any time — no blockers.
 
 ## Ticket order
 
@@ -37,3 +36,7 @@ on a cron schedule with a mounted file share.
 - CONTEXT.md is a glossary only: define what a term IS, no implementation detail
 - "Cheap filter → expensive LLM judge" is a standard pattern for keeping token cost down
 - Always break the code to confirm each test goes red, then restore
+
+### Understanding the codebase
+- Ticket 01, created config.py to create a basemodel for tender-scout configuration
+- Ticket 02, Created a Notice `BaseModel` in notice.py. Then created a `TedClient` Protocol thus we can test without actually being connected to the network. It is a contract with no behavior that both the test fake and the future real client satisfy. Then created `render_digest` in digest.py, to go over list of notices, then it adds a # Tender digest header and join blocks with black lines, each block show title + buyer country + URL. then created a `run` function in run.py it receives config, ted_client, and current date as arguments. It takes h-7 date as the start, then fetch_notices, render_digest, and write the text to digest.md. Lastly, wired it to cli.py

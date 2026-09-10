@@ -1,7 +1,11 @@
 import sys
 import argparse
 from pathlib import Path
+from datetime import date
+
 from tender_scout.config import ConfigError, load_config
+from tender_scout.run import run
+from tender_scout.ted import PlaceholderTedClient
 
 CONFIG_PATH = Path("config.yaml")
 
@@ -16,6 +20,7 @@ def main() -> None:
     args = parser.parse_args()
     try:
         config = load_config(args.config)
+
     except ConfigError as err:
         print(err, file=sys.stderr)
         sys.exit(1)
@@ -26,3 +31,6 @@ def main() -> None:
     print(f" min_score:         {config.min_score}")
     print(f" model:             {config.model}")
     print(f" company_profile:   {config.company_profile[:60]}")
+
+    digest = run(config, PlaceholderTedClient(), date.today())
+        print(f"wrote digest.md ({len(digest.splitlines())} lines)")
