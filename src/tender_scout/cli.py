@@ -33,4 +33,4 @@ def main() -> None:
     print(f" company_profile:   {config.company_profile[:60]}")
 
     digest = run(config, PlaceholderTedClient(), date.today())
-        print(f"wrote digest.md ({len(digest.splitlines())} lines)")
+    print(f"wrote digest.md ({len(digest.splitlines())} lines)")
