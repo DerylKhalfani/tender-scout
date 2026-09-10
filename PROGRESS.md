@@ -4,7 +4,7 @@
 
 Ticket 02 done (the run seam, Notice, TedClient Protocol, render_digest, fake-client test pattern, 11 tests)
 
-Next: ticket 03 (prefilter) or Do 06 (TE research) any time — no blockers.
+Next: ticket 03 (prefilter) or Do 06 (TED research) any time — no blockers.
 
 ## Ticket order
 
