@@ -4,6 +4,7 @@ from pathlib import Path
 from tender_scout.config import Config
 from tender_scout.digest import render_digest
 from tender_scout.ted import TedClient
+from tender_scout.filters import filter_notices
 
 
 def run(config: Config, ted_client: TedClient, today: date,
@@ -13,7 +14,9 @@ def run(config: Config, ted_client: TedClient, today: date,
 
     notices = ted_client.fetch_notices(start, today)
 
-    text = render_digest(notices)
+    filtered_notices = filter_notices(notices, config)
+
+    text = render_digest(filtered_notices)
 
     digest_path.write_text(text, encoding="utf-8")
 

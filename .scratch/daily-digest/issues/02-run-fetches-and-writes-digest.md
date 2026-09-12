@@ -9,9 +9,9 @@ the seam and the fake-collaborator testing pattern.
 
 **Status:** ready-for-agent
 
-- [ ] `run` takes the resolved config, a TED client, and the current date as inputs
-- [ ] `run` asks the TED client for notices over a fixed 7-day window ending on the current date (ADR 0001)
-- [ ] Every returned notice is written to `digest.md` with title, buyer country, and TED URL
-- [ ] The CLI constructs a (real or placeholder) TED client and calls `run`
-- [ ] Tests drive `run` with a fake TED client returning a hand-authored notice list and assert on `digest.md` contents
-- [ ] Notice fields available downstream: id, title, buyer country, CPV codes, notice text, TED URL, publication date
+- [x] `run` takes the resolved config, a TED client, and the current date as inputs
+- [x] `run` asks the TED client for notices over a fixed 7-day window ending on the current date (ADR 0001)
+- [x] Every returned notice is written to `digest.md` with title, buyer country, and TED URL
+- [x] The CLI constructs a (real or placeholder) TED client and calls `run`
+- [x] Tests drive `run` with a fake TED client returning a hand-authored notice list and assert on `digest.md` contents
+- [x] Notice fields available downstream: id, title, buyer country, CPV codes, notice text, TED URL, publication date

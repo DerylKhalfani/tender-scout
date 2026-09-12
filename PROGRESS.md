@@ -2,9 +2,9 @@
 
 ## Current focus
 
-Ticket 02 done (the run seam, Notice, TedClient Protocol, render_digest, fake-client test pattern, 11 tests)
+Ticket 03 done (CPV + country prefilter in filters.py, wired into run between fetch and render, 16 tests)
 
-Next: ticket 03 (prefilter) or Do 06 (TED research) any time — no blockers.
+Next: ticket 04 (scoring + threshold) or do 06 (TED research) any time — no blockers.
 
 ## Ticket order
 
@@ -40,3 +40,4 @@ on a cron schedule with a mounted file share.
 ### Understanding the codebase
 - Ticket 01, created config.py to create a basemodel for tender-scout configuration
 - Ticket 02, Created a Notice `BaseModel` in notice.py. Then created a `TedClient` Protocol thus we can test without actually being connected to the network. It is a contract with no behavior that both the test fake and the future real client satisfy. Then created `render_digest` in digest.py, to go over list of notices, then it adds a # Tender digest header and join blocks with black lines, each block show title + buyer country + URL. then created a `run` function in run.py it receives config, ted_client, and current date as arguments. It takes h-7 date as the start, then fetch_notices, render_digest, and write the text to digest.md. Lastly, wired it to cli.py
+- Ticket 03 wiring in the run.py, between the `fetch_notices` and `render_digest`. Before the notices gets rendered, filter it first. filter logic is implemented in `filters.py` by checking if notice has at least one cpv_code in common and country with the config params. Then firstly, `test_filters.py` to test if the function works as its intended. then `test_run.py` to test the filter function in the main pipeline
