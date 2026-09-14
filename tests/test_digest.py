@@ -2,6 +2,7 @@ from datetime import date
 
 from tender_scout.digest import render_digest
 from tender_scout.notice import Notice
+from tender_scout.scoring import ScoredNotice
 
 
 def _notice(**overrides) -> Notice:
@@ -18,14 +19,31 @@ def _notice(**overrides) -> Notice:
 
     return Notice(**fields)
 
+def _scored(score: int = 60, rationale: str = "...", **overrides) -> ScoredNotice:
+    fields = dict(
+        notice=_notice(**overrides),
+        score=score,
+        rationale=rationale
+    )
 
-def test_renders_each_notice_with_title_country_and_url() -> None:
-    notices = [_notice(title="Alpha",
+    return ScoredNotice(**fields)
+
+
+def test_renders_each_notice_with_score_and_rationale() -> None:
+    scored = [_scored(score=90, rationale="fake rationale", title="Alpha",
                        ted_url="https://ted.europa.eu/notice/1")]
 
-    digest = render_digest(notices)
+    digest = render_digest(scored)
 
     assert "Alpha" in digest
     assert "NL" in digest
     assert "https://ted.europa.eu/notice/1" in digest
     assert "\n- Buyer country: NL\n" in digest
+    assert "\n- Score: 90\n" in digest
+    assert "\n- Rationale: fake rationale\n" in digest
+
+
+def test_renders_a_no_matches_body_when_empty() -> None:
+    digest = render_digest([])
+
+    assert "# Tender digest\n\nNo matching notices" in digest

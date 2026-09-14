@@ -5,9 +5,10 @@ from tender_scout.config import Config
 from tender_scout.digest import render_digest
 from tender_scout.ted import TedClient
 from tender_scout.filters import filter_notices
+from tender_scout.scoring import score_notices, Scorer
 
 
-def run(config: Config, ted_client: TedClient, today: date,
+def run(config: Config, ted_client: TedClient, scorer: Scorer, today: date,
         digest_path: Path = Path("digest.md")) -> str:
 
     start = today - timedelta(days=7)
@@ -16,7 +17,9 @@ def run(config: Config, ted_client: TedClient, today: date,
 
     filtered_notices = filter_notices(notices, config)
 
-    text = render_digest(filtered_notices)
+    scored_notices = score_notices(filtered_notices, config, scorer)
+
+    text = render_digest(scored_notices)
 
     digest_path.write_text(text, encoding="utf-8")
 
