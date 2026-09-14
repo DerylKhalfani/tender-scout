@@ -36,9 +36,3 @@ def score_notices(notices: list[Notice], config: Config, scorer: Scorer) -> list
     sorted_scored_notices = sorted(scored_notices, key=lambda item: item.score, reverse=True)
 
     return sorted_scored_notices
-
-
-
-
-
-

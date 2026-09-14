@@ -1,12 +1,22 @@
-from tender_scout.notice import Notice
+from tender_scout.scoring import ScoredNotice
 
-def render_digest(notices: list[Notice]) -> str:
-    blocks: list[str] = ["# Tender digest"]
+HEADING = "# Tender digest"
 
-    for notice in notices:
+def render_digest(scored_notices: list[ScoredNotice]) -> str:
+    blocks: list[str] = [HEADING]
+
+    if not scored_notices:
+        return f"{HEADING}\n\nNo matching notices"
+
+    for scored_notice in scored_notices:
+
+        notice = scored_notice.notice
+
         blocks.append(
             f"## {notice.title}\n"
             f"- Buyer country: {notice.buyer_country}\n"
+            f"- Score: {scored_notice.score}\n"
+            f"- Rationale: {scored_notice.rationale}\n"
             f"- {notice.ted_url}"
         )
 
