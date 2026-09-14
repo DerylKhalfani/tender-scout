@@ -8,8 +8,8 @@ rationale. An empty result is a successful run, not an error.
 
 **Status:** ready-for-agent
 
-- [ ] `run` takes a scorer collaborator; for each prefiltered notice it gets an integer score (1–100) and an English rationale
-- [ ] Notices with `score < config.min_score` are dropped
-- [ ] `digest.md` lists survivors sorted by score descending, each showing score, title, buyer country, rationale, TED URL
-- [ ] When nothing clears the threshold, `digest.md` is written with a "no matching notices" body and the run exits zero
-- [ ] Verified through `run` with a fake scorer returning deterministic scores by notice id
+- [x] `run` takes a scorer collaborator; for each prefiltered notice it gets an integer score (1–100) and an English rationale
+- [x] Notices with `score < config.min_score` are dropped
+- [x] `digest.md` lists survivors sorted by score descending, each showing score, title, buyer country, rationale, TED URL
+- [x] When nothing clears the threshold, `digest.md` is written with a "no matching notices" body and the run exits zero
+- [x] Verified through `run` with a fake scorer returning deterministic scores by notice id
