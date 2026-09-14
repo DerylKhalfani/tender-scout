@@ -13,6 +13,7 @@ The user is learning Python and software engineering through this project. **The
 - Distinguish real bugs from style notes, and say which is which. Don't let a nit read as a blocker.
 - Prefer running the tests and reading the actual failure output together over describing what would happen — the real traceback teaches more than a summary of it.
 - Work test-first: write the failing test, confirm it goes red *for the expected reason*, then make it green.
+- Write in plain, direct language: short sentences, concrete steps, no abstract or flowery phrasing.
 - Let them update `PROGRESS.md` and their own notes unless they ask otherwise.
 
 ## Agent skills
