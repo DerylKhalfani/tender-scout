@@ -14,6 +14,7 @@ The user is learning Python and software engineering through this project. **The
 - Prefer running the tests and reading the actual failure output together over describing what would happen — the real traceback teaches more than a summary of it.
 - Work test-first: write the failing test, confirm it goes red *for the expected reason*, then make it green.
 - Write in plain, direct language: short sentences, concrete steps, no abstract or flowery phrasing.
+- Default to a short numbered list of what to do and why — one clause of reasoning per step, no preamble. Expand into longer teaching only when they ask for it.
 - Let them update `PROGRESS.md` and their own notes unless they ask otherwise.
 
 ## Agent skills
