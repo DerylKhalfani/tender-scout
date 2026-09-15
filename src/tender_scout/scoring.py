@@ -1,8 +1,12 @@
 from pydantic import BaseModel, Field, ConfigDict
+import logging 
 from typing import Protocol
 
 from tender_scout.notice import Notice
 from tender_scout.config import Config
+
+
+logger = logging.getLogger(__name__)
 
 
 class Scorer(Protocol):
@@ -28,11 +32,25 @@ def score_notices(notices: list[Notice], config: Config, scorer: Scorer) -> list
 
     scored_notices: list[ScoredNotice] = []
     for notice in notices:
-        score, rationale = scorer.score(notice, config)
 
-        if score >= config.min_score:
-            scored_notices.append(ScoredNotice(notice=notice, score=score, rationale=rationale))
+        try:
+            score, rationale = scorer.score(notice, config)
 
-    sorted_scored_notices = sorted(scored_notices, key=lambda item: item.score, reverse=True)
+        except Exception:
+            logger.exception("Scoring failed for notice: %s", notice.id)
+            continue
 
-    return sorted_scored_notices
+        scored_notices.append(ScoredNotice(notice=notice, score=score, rationale=rationale))
+
+    return scored_notices
+
+
+def select_for_digest(scored: list[ScoredNotice], config: Config) -> list[ScoredNotice]:
+
+    kept: list[ScoredNotice] = []
+    for scored_notice in scored:
+
+        if scored_notice.score >= config.min_score:
+            kept.append(scored_notice)
+
+    return sorted(kept, key=lambda item: item.score, reverse=True)

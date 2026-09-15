@@ -6,6 +6,7 @@ dist/
 wheels/
 *.egg-info
 digest.md
+seen.db
 
 # Virtual environments
 .venv
