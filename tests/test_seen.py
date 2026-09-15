@@ -1,30 +1,29 @@
 from tender_scout.seen import SeenStore
 from pathlib import Path
 
-def test_all_ids_are_new_in_a_fresh_store(tmp_path: Path) -> None:
+def test_fresh_store_has_seen_nothing(tmp_path: Path) -> None:
     db_path = tmp_path / "seen.db"
     store = SeenStore(db_path)
 
-    new_ids = store.unseen(["a", "b"])
+    seen_ids = store.seen(["a", "b"])
 
-    assert new_ids == ["a", "b"]
-
-
-def test_marked_ids_are_no_longer_new(tmp_path: Path) -> None:
-    db_path = tmp_path / "seen.db"
-    store = SeenStore(db_path)
-
-    store.mark_seen(["a"])
-    new_ids = store.unseen(["a", "b"])
-
-    assert new_ids == ["b"]
+    assert seen_ids == set()
 
 
 def test_seen_ids_survive_a_new_store(tmp_path: Path) -> None:
     db_path = tmp_path / "seen.db"
     store_one = SeenStore(db_path)
-    store_two = SeenStore(db_path)
-
     store_one.mark_seen(["a"])
 
-    assert store_two.unseen(["a", "b"]) == ["b"]
+    store_two = SeenStore(db_path)
+
+    assert store_two.seen(["a", "b"]) == {"a"}
+
+
+def test_seen_returns_only_recorded_ids(tmp_path: Path) -> None:
+    db_path = tmp_path / "seen.db"
+    store = SeenStore(db_path)
+
+    store.mark_seen(["a", "z"])
+
+    assert store.seen(["a", "b"]) == {"a"}

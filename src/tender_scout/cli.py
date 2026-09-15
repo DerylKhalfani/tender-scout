@@ -7,6 +7,7 @@ from tender_scout.config import ConfigError, load_config
 from tender_scout.run import run
 from tender_scout.scoring import PlaceholderScorer
 from tender_scout.ted import PlaceholderTedClient
+from tender_scout.seen import SeenStore
 
 CONFIG_PATH = Path("config.yaml")
 
@@ -33,5 +34,5 @@ def main() -> None:
     print(f" model:             {config.model}")
     print(f" company_profile:   {config.company_profile[:60]}")
 
-    digest = run(config, PlaceholderTedClient(), PlaceholderScorer(), date.today())
+    digest = run(config, PlaceholderTedClient(), PlaceholderScorer(), SeenStore(Path("seen.db")), date.today())
     print(f"wrote digest.md ({len(digest.splitlines())} lines)")

@@ -1,7 +1,7 @@
 from datetime import date
 
 from tender_scout.config import Config
-from tender_scout.filters import matches
+from tender_scout.filters import matches, filter_notices
 from tender_scout.notice import Notice
 
 def _config(**overrides) -> Config:
@@ -38,4 +38,15 @@ def test_drops_notice_with_wrong_country() -> None:
 
 def test_keeps_notice_when_one_of_several_cpv_codes_matches() -> None:
     assert matches(_notice(cpv_codes=["71351000", "41500000", "41600000"]), _config()) is True
-    
+
+
+def test_drops_notices_already_seen() -> None:
+
+    notices = [
+        _notice(id="a"),
+        _notice(id="b")
+    ]
+
+    kept = filter_notices(notices, _config(), {"a"})
+
+    assert [n.id for n in kept] == ["b"]

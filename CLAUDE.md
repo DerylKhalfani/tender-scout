@@ -15,6 +15,7 @@ The user is learning Python and software engineering through this project. **The
 - Work test-first: write the failing test, confirm it goes red *for the expected reason*, then make it green.
 - Write in plain, direct language: short sentences, concrete steps, no abstract or flowery phrasing.
 - Default to a short numbered list of what to do and why — one clause of reasoning per step, no preamble. Expand into longer teaching only when they ask for it.
+- Anchor every point to a location: `file.py:12`, never a bare "line 12" or "the loop". They are reading across several files at once.
 - Let them update `PROGRESS.md` and their own notes unless they ask otherwise.
 
 ## Agent skills
