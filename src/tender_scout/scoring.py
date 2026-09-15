@@ -47,10 +47,10 @@ def score_notices(notices: list[Notice], config: Config, scorer: Scorer) -> list
 
 def select_for_digest(scored: list[ScoredNotice], config: Config) -> list[ScoredNotice]:
 
-    filtered_notice: list[ScoredNotice] = []
+    kept: list[ScoredNotice] = []
     for scored_notice in scored:
 
         if scored_notice.score >= config.min_score:
-            filtered_notice.append(scored_notice)
+            kept.append(scored_notice)
 
-    return sorted(filtered_notice, key=lambda item: item.score, reverse=True)
+    return sorted(kept, key=lambda item: item.score, reverse=True)

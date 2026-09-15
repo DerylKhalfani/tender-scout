@@ -1,5 +1,7 @@
 from datetime import date
 from pathlib import Path
+import pytest
+
 
 from tender_scout.config import Config
 from tender_scout.notice import Notice
@@ -52,6 +54,12 @@ class FakeScorer:
         notice_id_score = self.scores[notice.id]
 
         return notice_id_score, f"Fake scorer output {notice.id}"
+
+
+class FailingTedClient:
+    def fetch_notices(self, start: date, end: date) -> list[Notice]:
+        raise RuntimeError("TED fetch failed")
+
 
 
 def test_writes_every_notice_to_digest(tmp_path: Path) -> None:
@@ -230,5 +238,36 @@ def test_a_notice_below_the_threshold_is_still_marked_seen(tmp_path: Path) -> No
     assert store.seen(["a"]) == {"a"}
     assert "No matching notices" in text
     assert written == text
+
+
+def test_a_failed_aborts_the_run_and_writes_no_digest(tmp_path: Path) -> None:
+    client = FailingTedClient()
+    scorer = FakeScorer({})
+    store = SeenStore(tmp_path / "seen.db")
+    digest_path = tmp_path / "digest.md"
+
+    with pytest.raises(RuntimeError):
+        run(_config(), client, scorer, store, date(2026, 9, 10), digest_path)
+
+    assert not digest_path.exists()
+
+
+def test_a_failed_digest_write_leaves_notices_unseen(tmp_path: Path) -> None:
+    notice = [
+        _notice(id="a", title="Alpha"),    
+    ]
+
+    client = FakeTedClient(notice)
+    scorer = FakeScorer({"a": 90})
+    store = SeenStore(tmp_path / "seen.db")
+
+    with pytest.raises(OSError):
+        run(_config(), client, scorer, store, date(2026, 9, 10), digest_path= tmp_path / "missing" / "digest.md")
+
+
+    assert store.seen(["a"]) == set()
+
+
+
 
 

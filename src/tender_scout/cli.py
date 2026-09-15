@@ -34,5 +34,11 @@ def main() -> None:
     print(f" model:             {config.model}")
     print(f" company_profile:   {config.company_profile[:60]}")
 
-    digest = run(config, PlaceholderTedClient(), PlaceholderScorer(), SeenStore(Path("seen.db")), date.today())
+    try:
+        digest = run(config, PlaceholderTedClient(), PlaceholderScorer(), SeenStore(Path("seen.db")), date.today())
+
+    except Exception as err:
+        print(f"run failed: {err}", file=sys.stderr)
+        sys.exit(1)
+        
     print(f"wrote digest.md ({len(digest.splitlines())} lines)")

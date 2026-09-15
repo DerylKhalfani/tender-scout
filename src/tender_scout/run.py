@@ -22,12 +22,12 @@ def run(config: Config, ted_client: TedClient, scorer: Scorer, store: SeenStore,
 
     scored_notices = score_notices(filtered_notices, config, scorer)
 
-    store.mark_seen([n.notice.id for n in scored_notices])
-
     filtered_scored_notices = select_for_digest(scored_notices, config)
 
     text = render_digest(filtered_scored_notices)
 
     digest_path.write_text(text, encoding="utf-8")
+
+    store.mark_seen([n.notice.id for n in scored_notices])    
 
     return text
