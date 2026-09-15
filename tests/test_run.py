@@ -268,6 +268,29 @@ def test_a_failed_digest_write_leaves_notices_unseen(tmp_path: Path) -> None:
     assert store.seen(["a"]) == set()
 
 
+def test_a_notice_is_not_reported_twice_across_runs(tmp_path: Path) -> None:
+    notices = [
+        _notice(id="a", title="Alpha"),
+        _notice(id="b", title="Beta")
+    ]
+
+    client = FakeTedClient(notices)
+    scorer = FakeScorer({"a": 90, "b": 90})
+    store = SeenStore(tmp_path / "seen.db")
+
+    first = tmp_path / "day1.md"
+    second = tmp_path / "day2.md"
+
+    run(_config(), client, scorer, store, date(2026, 9, 10), first)
+    run(_config(), client, scorer, store, date(2026, 9, 11), second)
+
+    assert "Alpha" in first.read_text()
+    assert "Beta" in first.read_text()
+    assert "Alpha" not in second.read_text()
+    assert "Beta" not in second.read_text()
+    assert "No matching notices" in second.read_text()
+
+
 
 
 
