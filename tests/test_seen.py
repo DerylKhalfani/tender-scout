@@ -1,5 +1,7 @@
-from tender_scout.seen import SeenStore
 from pathlib import Path
+
+from tender_scout.seen import SeenStore
+
 
 def test_fresh_store_has_seen_nothing(tmp_path: Path) -> None:
     db_path = tmp_path / "seen.db"

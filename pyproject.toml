@@ -24,4 +24,14 @@ build-backend = "uv_build"
 [dependency-groups]
 dev = [
     "pytest>=9.1.1",
+    "ruff>=0.16.8",
+]
+
+[tool.ruff.lint]
+ignore = [
+    # dict(a=1) in the test helpers mirrors keyword arguments on purpose
+    "C408",
+    # date.today() being timezone-naive is real, but it changes behaviour
+    # and belongs with the deploy ticket, not this cleanup
+    "DTZ011",
 ]

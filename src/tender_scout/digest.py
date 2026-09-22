@@ -2,6 +2,7 @@ from tender_scout.scoring import ScoredNotice
 
 HEADING = "# Tender digest"
 
+
 def render_digest(scored_notices: list[ScoredNotice]) -> str:
     blocks: list[str] = [HEADING]
 
@@ -9,7 +10,6 @@ def render_digest(scored_notices: list[ScoredNotice]) -> str:
         return f"{HEADING}\n\nNo matching notices"
 
     for scored_notice in scored_notices:
-
         notice = scored_notice.notice
 
         blocks.append(

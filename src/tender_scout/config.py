@@ -1,18 +1,44 @@
 """Configuration for a tender-scout run"""
 
 from pathlib import Path
+
 import yaml
-from pydantic import BaseModel, Field, ValidationError, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 EU_COUNTRIES: list[str] = [
-    "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR",
-    "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL",
-    "PL", "PT", "RO", "SK", "SI", "ES", "SE",
+    "AT",
+    "BE",
+    "BG",
+    "HR",
+    "CY",
+    "CZ",
+    "DK",
+    "EE",
+    "FI",
+    "FR",
+    "DE",
+    "GR",
+    "HU",
+    "IE",
+    "IT",
+    "LV",
+    "LT",
+    "LU",
+    "MT",
+    "NL",
+    "PL",
+    "PT",
+    "RO",
+    "SK",
+    "SI",
+    "ES",
+    "SE",
 ]
 
 
 class Config(BaseModel):
     """Validated tender-scout configuration."""
+
     model_config = ConfigDict(extra="forbid")
 
     cpv_codes: list[str]
@@ -41,7 +67,9 @@ def load_config(path: Path) -> Config:
 
     # check the mapping of the yaml
     if not isinstance(data, dict):
-        raise ConfigError(f"config file must contain a mapping, got {type(data).__name__}")
+        raise ConfigError(
+            f"config file must contain a mapping, got {type(data).__name__}"
+        )
 
     # return a Config object
     try:

@@ -3,14 +3,20 @@ from pathlib import Path
 
 from tender_scout.config import Config
 from tender_scout.digest import render_digest
-from tender_scout.ted import TedClient
 from tender_scout.filters import filter_notices
-from tender_scout.scoring import score_notices, select_for_digest, Scorer
+from tender_scout.scoring import Scorer, score_notices, select_for_digest
 from tender_scout.seen import SeenStore
+from tender_scout.ted import TedClient
 
 
-def run(config: Config, ted_client: TedClient, scorer: Scorer, store: SeenStore, today: date,
-        digest_path: Path = Path("digest.md")) -> str:
+def run(
+    config: Config,
+    ted_client: TedClient,
+    scorer: Scorer,
+    store: SeenStore,
+    today: date,
+    digest_path: Path = Path("digest.md"),
+) -> str:
 
     start = today - timedelta(days=7)
 
@@ -30,6 +36,6 @@ def run(config: Config, ted_client: TedClient, scorer: Scorer, store: SeenStore,
 
     digest_path.write_text(text, encoding="utf-8")
 
-    store.mark_seen([n.notice.id for n in scored_notices])    
+    store.mark_seen([n.notice.id for n in scored_notices])
 
     return text

@@ -1,7 +1,8 @@
-from tender_scout.notice import Notice
 from tender_scout.config import Config
+from tender_scout.notice import Notice
 
 # Filtering logic file
+
 
 def matches(notice: Notice, config: Config) -> bool:
     """Match notice configurations to original configurations"""
@@ -15,6 +16,7 @@ def matches(notice: Notice, config: Config) -> bool:
     shared_country = notice.buyer_country in config.countries
 
     return shared_cpv_code and shared_country
+
 
 def filter_notices(notices: list[Notice], config: Config) -> list[Notice]:
 
