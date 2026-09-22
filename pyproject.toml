@@ -28,6 +28,15 @@ dev = [
 ]
 
 [tool.ruff.lint]
+select = [
+    "E4", "E7", "E9",  # pycodestyle - ruff's defaults, re-listed because select replaces them
+    "F",               # pyflakes - unused imports and variables,  undefined names
+    "I",               # isort - import ordering
+    "C4",              # comprehension and literal style
+    "BLE",             # blind except
+    "DTZ",             # timezone-naive datetimes
+    "RUF100",          # noqa directives that suppress nothing
+]
 ignore = [
     # dict(a=1) in the test helpers mirrors keyword arguments on purpose
     "C408",

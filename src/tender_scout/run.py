@@ -22,9 +22,9 @@ def run(
 
     notices = ted_client.fetch_notices(start, today)
 
-    seen_ids = store.already_seen([n.id for n in notices])
-
     filtered_notices = filter_notices(notices, config)
+
+    seen_ids = store.already_seen([n.id for n in filtered_notices])
 
     unseen_notices = [n for n in filtered_notices if n.id not in seen_ids]
 

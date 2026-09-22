@@ -49,7 +49,6 @@ def main() -> None:
 
     except Exception as err:  # noqa: BLE001 - top-level CLI boundary, nothing should escape
         print(f"run did not complete: {err}", file=sys.stderr)
-        print("digest.md may be missing or stale", file=sys.stderr)
         traceback.print_exc()
         sys.exit(1)
 

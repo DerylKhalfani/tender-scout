@@ -21,7 +21,9 @@ class SeenStore:
 
     def already_seen(self, ids: list[str]) -> set[str]:
         """
-        return the subset of input ids and from database
+        Return the ids among the given ones that were already reported.
+        Ids this store has no record of are left out; an empty input
+        returns an empty set.
         """
         if not ids:
             return set()
