@@ -7,9 +7,9 @@ works, so the TED client (07) can be built without guesswork.
 
 **Status:** ready-for-agent
 
-- [ ] Documents authentication (key required? how obtained?)
-- [ ] Documents the query mechanism for: publication-date window, CPV code, buyer country
-- [ ] Documents the fields a contract notice exposes, mapped to what `run` needs (id, title, buyer country, CPV codes, notice text, TED URL, publication date)
-- [ ] Documents rate limits, pagination, and result-size limits
-- [ ] Every claim links to official TED documentation
-- [ ] Saved as a Markdown file in the repo (e.g. under `docs/`)
+- [x] Documents authentication (key required? how obtained?)
+- [x] Documents the query mechanism for: publication-date window, CPV code, buyer country
+- [x] Documents the fields a contract notice exposes, mapped to what `run` needs (id, title, buyer country, CPV codes, notice text, TED URL, publication date)
+- [x] Documents rate limits, pagination, and result-size limits
+- [x] Every claim links to official TED documentation
+- [x] Saved as a Markdown file in the repo (e.g. under `docs/`)
