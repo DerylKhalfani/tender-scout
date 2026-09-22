@@ -16,15 +16,17 @@ def run(config: Config, ted_client: TedClient, scorer: Scorer, store: SeenStore,
 
     notices = ted_client.fetch_notices(start, today)
 
-    seen_ids = store.seen([n.id for n in notices])
+    seen_ids = store.already_seen([n.id for n in notices])
 
-    filtered_notices = filter_notices(notices, config, seen_ids)
+    filtered_notices = filter_notices(notices, config)
 
-    scored_notices = score_notices(filtered_notices, config, scorer)
+    unseen_notices = [n for n in filtered_notices if n.id not in seen_ids]
 
-    filtered_scored_notices = select_for_digest(scored_notices, config)
+    scored_notices = score_notices(unseen_notices, config, scorer)
 
-    text = render_digest(filtered_scored_notices)
+    digest_notices = select_for_digest(scored_notices, config)
+
+    text = render_digest(digest_notices)
 
     digest_path.write_text(text, encoding="utf-8")
 

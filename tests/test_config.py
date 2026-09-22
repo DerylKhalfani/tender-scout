@@ -4,6 +4,7 @@ import pytest
 
 from tender_scout.config import ConfigError, EU_COUNTRIES, load_config
 
+
 def test_optional_fields_get_defaults(tmp_path: Path) -> None:
     config_file = tmp_path / "config.yaml"
     config_file.write_text(

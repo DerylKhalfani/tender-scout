@@ -16,15 +16,6 @@ def matches(notice: Notice, config: Config) -> bool:
 
     return shared_cpv_code and shared_country
 
-def filter_notices(notices: list[Notice], config: Config, seen_ids: set[str]) -> list[Notice]:
+def filter_notices(notices: list[Notice], config: Config) -> list[Notice]:
 
-    passed_list = []
-
-    for notice in notices:
-
-        value = matches(notice, config)
-
-        if value and notice.id not in seen_ids:
-            passed_list.append(notice)
-
-    return passed_list
+    return [notice for notice in notices if matches(notice, config)]

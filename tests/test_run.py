@@ -214,8 +214,8 @@ def test_a_failed_notice_is_left_unseen(tmp_path: Path) -> None:
 
     text = run(_config(), client, scorer, store, date(2026, 9, 10), digest_path)
 
-    assert store.seen(["b"]) == set()
-    assert store.seen(["a"]) == {"a"}
+    assert store.already_seen(["b"]) == set()
+    assert store.already_seen(["a"]) == {"a"}
 
 
 
@@ -235,12 +235,12 @@ def test_a_notice_below_the_threshold_is_still_marked_seen(tmp_path: Path) -> No
 
     written = digest_path.read_text()
 
-    assert store.seen(["a"]) == {"a"}
+    assert store.already_seen(["a"]) == {"a"}
     assert "No matching notices" in text
     assert written == text
 
 
-def test_a_failed_aborts_the_run_and_writes_no_digest(tmp_path: Path) -> None:
+def test_a_failed_fetch_aborts_the_run_and_writes_no_digest(tmp_path: Path) -> None:
     client = FailingTedClient()
     scorer = FakeScorer({})
     store = SeenStore(tmp_path / "seen.db")
@@ -265,7 +265,7 @@ def test_a_failed_digest_write_leaves_notices_unseen(tmp_path: Path) -> None:
         run(_config(), client, scorer, store, date(2026, 9, 10), digest_path= tmp_path / "missing" / "digest.md")
 
 
-    assert store.seen(["a"]) == set()
+    assert store.already_seen(["a"]) == set()
 
 
 def test_a_notice_is_not_reported_twice_across_runs(tmp_path: Path) -> None:

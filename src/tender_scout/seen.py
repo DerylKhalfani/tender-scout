@@ -19,6 +19,15 @@ class SeenStore:
             conn.executemany("INSERT OR IGNORE INTO seen (id) VALUES (?)",
                              [(i,) for i in ids])
 
-    def seen(self, ids: list[str]) -> set[str]:
+    def already_seen(self, ids: list[str]) -> set[str]:
+        """
+        return the subset of input ids and from database
+        """
+        if not ids:
+            return set()
+
+        placeholders = ",".join("?" for _ in ids)
+        sql = f"SELECT id FROM seen WHERE id IN ({placeholders})"
+
         with sqlite3.connect(self.db_path) as conn:
-            return set(ids) & {row[0] for row in conn.execute("SELECT id FROM seen")}
+            return {row[0] for row in conn.execute(sql, ids)}

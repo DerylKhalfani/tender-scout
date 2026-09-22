@@ -1,5 +1,6 @@
 import sys
 import argparse
+import traceback
 from pathlib import Path
 from datetime import date
 
@@ -38,7 +39,9 @@ def main() -> None:
         digest = run(config, PlaceholderTedClient(), PlaceholderScorer(), SeenStore(Path("seen.db")), date.today())
 
     except Exception as err:
-        print(f"run failed: {err}", file=sys.stderr)
+        print(f"run did not complete: {err}", file=sys.stderr)
+        print("digest.md may be missing or stale", file=sys.stderr)
+        traceback.print_exc()
         sys.exit(1)
         
     print(f"wrote digest.md ({len(digest.splitlines())} lines)")
