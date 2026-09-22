@@ -2,13 +2,13 @@ from pathlib import Path
 
 import pytest
 
-from tender_scout.config import ConfigError, EU_COUNTRIES, load_config
+from tender_scout.config import EU_COUNTRIES, ConfigError, load_config
+
 
 def test_optional_fields_get_defaults(tmp_path: Path) -> None:
     config_file = tmp_path / "config.yaml"
     config_file.write_text(
-        'cpv_codes: ["71351000"]\n'
-        'company_profile: "we survey things"\n'
+        'cpv_codes: ["71351000"]\ncompany_profile: "we survey things"\n'
     )
 
     config = load_config(config_file)
@@ -28,9 +28,7 @@ def test_missing_file_raises_config_error(tmp_path: Path) -> None:
 def test_unknown_key_raises(tmp_path: Path) -> None:
     config_file = tmp_path / "config.yaml"
     config_file.write_text(
-        'cpv_codes: ["71351000"]\n'
-        'company_profile: "x"\n'
-        'min_scor: 50\n'
+        'cpv_codes: ["71351000"]\ncompany_profile: "x"\nmin_scor: 50\n'
     )
 
     with pytest.raises(ConfigError):

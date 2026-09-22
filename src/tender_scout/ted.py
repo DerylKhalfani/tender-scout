@@ -3,9 +3,9 @@ from typing import Protocol
 
 from tender_scout.notice import Notice
 
+
 class TedClient(Protocol):
-    def fetch_notices(self, start: date, end: date) -> list[Notice]:
-        ...
+    def fetch_notices(self, start: date, end: date) -> list[Notice]: ...
 
 
 class PlaceholderTedClient:

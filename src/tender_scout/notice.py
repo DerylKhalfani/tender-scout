@@ -1,8 +1,11 @@
-from pydantic import BaseModel, ConfigDict, Field
 from datetime import date
+
+from pydantic import BaseModel, ConfigDict
+
 
 class Notice(BaseModel):
     """Plain data model for one TED record"""
+
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     id: str

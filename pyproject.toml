@@ -24,4 +24,23 @@ build-backend = "uv_build"
 [dependency-groups]
 dev = [
     "pytest>=9.1.1",
+    "ruff>=0.16.8",
+]
+
+[tool.ruff.lint]
+select = [
+    "E4", "E7", "E9",  # pycodestyle - ruff's defaults, re-listed because select replaces them
+    "F",               # pyflakes - unused imports and variables,  undefined names
+    "I",               # isort - import ordering
+    "C4",              # comprehension and literal style
+    "BLE",             # blind except
+    "DTZ",             # timezone-naive datetimes
+    "RUF100",          # noqa directives that suppress nothing
+]
+ignore = [
+    # dict(a=1) in the test helpers mirrors keyword arguments on purpose
+    "C408",
+    # date.today() being timezone-naive is real, but it changes behaviour
+    # and belongs with the deploy ticket, not this cleanup
+    "DTZ011",
 ]

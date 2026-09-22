@@ -53,7 +53,7 @@ score, each with its rationale and a link to the notice on TED.
 _Avoid_: Report, Feed, Summary, Newsletter.
 
 **Run**:
-One end-to-end execution: fetch, prefilter, score, threshold, write digest, record what
+One end-to-end execution: fetch, prefilter, dedup, score, threshold, write digest, record what
 was seen. Happens once per day when deployed, or on demand from the CLI.
 _Avoid_: Job, Cycle, Pass.
 
