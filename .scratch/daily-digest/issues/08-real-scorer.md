@@ -12,4 +12,3 @@ notice against the company profile — replacing the fake in the CLI.
 - [ ] The prompt is in English, passes the notice text in its original language, and asks for an English rationale
 - [ ] The OpenAI API key is read from an environment variable
 - [ ] Wired into the CLI in place of the fake; a manual run produces real scores and rationales in `digest.md`
-- [ ] `run`'s tests still use the fake scorer and are unchanged

@@ -7,8 +7,8 @@ from tender_scout.notice import Notice
 def matches(notice: Notice, config: Config) -> bool:
     """Match notice configurations to original configurations"""
 
-    notice_cpv_codes = set(notice.cpv_codes)
-    config_cpv_codes = set(config.cpv_codes)
+    notice_cpv_codes = {code[:5] for code in notice.cpv_codes}
+    config_cpv_codes = {code[:5] for code in config.cpv_codes}
 
     # condition to check if atleast they share one cpv_code
     shared_cpv_code = bool(notice_cpv_codes & config_cpv_codes)

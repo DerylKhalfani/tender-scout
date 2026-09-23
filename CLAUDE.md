@@ -17,6 +17,11 @@ The user is learning Python and software engineering through this project. **The
 - Default to a short numbered list of what to do and why — one clause of reasoning per step, no preamble. Expand into longer teaching only when they ask for it.
 - Anchor every point to a location: `file.py:12`, never a bare "line 12" or "the loop". They are reading across several files at once.
 - Let them update `PROGRESS.md` and their own notes unless they ask otherwise.
+- **Do not write tests and do not ask for them.** The focus is the working pipeline:
+  fetch, filter, dedup, score, rank, write. The existing suite stays as it is; don't
+  add to it, don't cite it as a reason to change code, and don't propose test-first.
+- For anything that talks to an external API, call it and look at the real response
+  before writing the code against it.
 
 ## Agent skills
 
