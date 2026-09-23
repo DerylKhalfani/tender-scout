@@ -95,7 +95,6 @@ def _build_query(config: Config, start: date, end: date) -> str:
         f" AND classification-cpv IN ({cpv_codes})"
         f" AND buyer-country IN ({joined_countries})"
     )
-           
 
 
 class TedApiClient:

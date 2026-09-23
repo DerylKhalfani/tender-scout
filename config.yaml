@@ -1,4 +1,8 @@
 # CPV codes to keep. Strings, because some codes have leading zeros
+countries:
+- "NL"
+- "BE"
+
 cpv_codes:
 - "71351000"
 - "76320000"
