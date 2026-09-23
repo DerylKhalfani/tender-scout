@@ -977,6 +977,7 @@ name = "tender-scout"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "httpx" },
     { name = "langchain" },
     { name = "langchain-openai" },
     { name = "pydantic" },
@@ -991,6 +992,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "httpx", specifier = ">=0.28" },
     { name = "langchain", specifier = ">=1.4.0" },
     { name = "langchain-openai", specifier = ">=1.6.1" },
     { name = "pydantic", specifier = ">=2.13.5" },

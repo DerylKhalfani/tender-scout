@@ -35,6 +35,17 @@ EU_COUNTRIES: list[str] = [
     "SE",
 ]
 
+COUNTRY_ALPHA3: dict[str, str] = {
+    "AT": "AUT", "BE": "BEL", "BG": "BGR", "HR": "HRV", "CY": "CYP",
+    "CZ": "CZE", "DK": "DNK", "EE": "EST", "FI": "FIN", "FR": "FRA",
+    "DE": "DEU", "GR": "GRC", "HU": "HUN", "IE": "IRL", "IT": "ITA",
+    "LV": "LVA", "LT": "LTU", "LU": "LUX", "MT": "MLT", "NL": "NLD",
+    "PL": "POL", "PT": "PRT", "RO": "ROU", "SK": "SVK", "SI": "SVN",
+    "ES": "ESP", "SE": "SWE",
+}
+
+ALPHA3_TO_ALPHA2: dict[str, str] = {v: k for k, v in COUNTRY_ALPHA3.items()}
+
 
 class Config(BaseModel):
     """Validated tender-scout configuration."""
