@@ -8,7 +8,7 @@ import httpx
 
 from tender_scout.config import ConfigError, load_config
 from tender_scout.run import run
-from tender_scout.scoring import PlaceholderScorer
+from tender_scout.scoring import LLMScorer
 from tender_scout.seen import SeenStore
 from tender_scout.ted import SEARCH_URL, TedApiClient
 
@@ -48,7 +48,7 @@ def main() -> None:
         digest = run(
             config,
             TedApiClient(config, post=post),
-            PlaceholderScorer(),
+            LLMScorer(config),
             SeenStore(Path("seen.db")),
             date.today(),
         )
