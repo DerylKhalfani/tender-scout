@@ -49,7 +49,7 @@ def main() -> None:
             config,
             TedApiClient(config, post=post),
             LLMScorer(config),
-            SeenStore(Path("seen.db")),
+            SeenStore(Path("seen.json")),
             date.today(),
         )
 
